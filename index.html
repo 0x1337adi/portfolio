@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aditya Kumar | Portfolio</title>
+
+<style>
+body {
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#0b1220;
+  color:#e2e8f0;
+}
+
+/* CLEAN UI */
+#main {
+  display:block;
+}
+
+header {
+  padding:40px;
+  text-align:center;
+  background:#020617;
+}
+
+h1 { color:#38bdf8; }
+
+section {
+  padding:30px;
+  max-width:900px;
+  margin:auto;
+}
+
+.card {
+  background:#020617;
+  padding:20px;
+  margin:15px 0;
+  border-radius:10px;
+}
+
+/* BUTTON */
+.toggle {
+  position:fixed;
+  top:10px;
+  right:10px;
+  background:#38bdf8;
+  border:none;
+  padding:10px;
+  cursor:pointer;
+}
+
+/* HACKER MODE */
+#hacker {
+  display:none;
+  background:black;
+  color:#00ff9f;
+  height:100vh;
+  overflow:auto;
+  font-family: monospace;
+  padding:20px;
+}
+
+.line { margin:5px 0; }
+
+input {
+  background:transparent;
+  border:none;
+  color:#00ff9f;
+  outline:none;
+}
+</style>
+</head>
+
+<body>
+
+<button class="toggle" onclick="toggleMode()">⚡ Hacker Mode</button>
+
+<!-- CLEAN UI -->
+<div id="main">
+
+<header>
+  <h1>Aditya Kumar</h1>
+  <p>Infosec Intern at Salesforce</p>
+  <p>Dehradun, Uttarakhand, India</p>
+</header>
+
+<section>
+  <h2>About</h2>
+  <div class="card">
+    Cybersecurity graduate specializing in DFIR, SOC operations, and digital forensics.
+  </div>
+</section>
+
+<section>
+  <h2>Skills</h2>
+  <div class="card">
+    Cybersecurity • GRC • AWS • CCNA • SOC • DFIR
+  </div>
+</section>
+
+<section>
+  <h2>Experience</h2>
+  <div class="card">
+    Salesforce - Infosec Intern (2026)
+  </div>
+  <div class="card">
+    Uttarakhand Police - Cyber Forensics Intern (2025)
+  </div>
+</section>
+
+<section>
+  <h2>Certifications</h2>
+  <div class="card">
+    Security+ • CSEDP • CNSP • C3SA • Fortinet • MCBTA
+  </div>
+</section>
+
+<section>
+  <h2>Contact</h2>
+  <div class="card">
+    Email: kumaraditya766899@gmail.com
+  </div>
+</section>
+
+</div>
+
+<!-- HACKER MODE -->
+<div id="hacker"></div>
+
+<script>
+let hackerMode = false;
+
+function toggleMode() {
+  hackerMode = !hackerMode;
+  document.getElementById("main").style.display = hackerMode ? "none" : "block";
+  document.getElementById("hacker").style.display = hackerMode ? "block" : "none";
+}
+
+/* TERMINAL */
+const hacker = document.getElementById("hacker");
+
+function print(text) {
+  const d = document.createElement("div");
+  d.className = "line";
+  d.textContent = text;
+  hacker.appendChild(d);
+  hacker.scrollTop = hacker.scrollHeight;
+}
+
+function inputLine() {
+  const div = document.createElement("div");
+  const input = document.createElement("input");
+
+  div.append("> ");
+  div.appendChild(input);
+  hacker.appendChild(div);
+
+  input.focus();
+
+  input.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+      handle(input.value);
+      input.disabled = true;
+      inputLine();
+    }
+  });
+}
+
+function handle(cmd) {
+  cmd = cmd.toLowerCase();
+
+  if (cmd === "help") {
+    print("whoami | skills | experience | certs | contact | clear");
+  }
+
+  else if (cmd === "whoami") {
+    print("Aditya Kumar - Infosec Intern @ Salesforce");
+  }
+
+  else if (cmd === "skills") {
+    print("Cybersecurity | DFIR | SOC | AWS | GRC");
+  }
+
+  else if (cmd === "experience") {
+    print("Salesforce | Uttarakhand Police");
+  }
+
+  else if (cmd === "certs") {
+    print("Security+ | CSEDP | CNSP | C3SA");
+  }
+
+  else if (cmd === "contact") {
+    print("Email: kumaraditya766899@gmail.com");
+  }
+
+  else if (cmd === "clear") {
+    hacker.innerHTML = "";
+  }
+
+  else {
+    print("Unknown command");
+  }
+}
+
+print("Entering hacker mode...");
+inputLine();
+</script>
+
+</body>
+</html>
